@@ -84,15 +84,16 @@ async function ProductDetailContent({ params }: { params: Promise<{ id: string }
     notFound();
   }
 
-  // Consultar fotos adicionales y precio original tachado en site_settings si no están en la tabla
+  // Consultar fotos adicionales, precio original y garantías en site_settings
   const { data: productSettings } = await supabase
     .from('site_settings')
     .select('key, value')
-    .in('key', [`product_images_${id}`, `product_original_price_${id}`, 'contact_phone']);
+    .or(`key.in.(product_images_${id},product_original_price_${id},contact_phone),key.like.guarantee_%`);
 
   let extraPhotoSetting: string | null = null;
   let originalPriceSetting: number | null = null;
   let storePhone = '+51 997 966 231';
+  const guaranteesConfig: Record<string, string> = {};
 
   productSettings?.forEach((s) => {
     if (s.key === `product_images_${id}`) {
@@ -102,8 +103,18 @@ async function ProductDetailContent({ params }: { params: Promise<{ id: string }
       if (!isNaN(val)) originalPriceSetting = val;
     } else if (s.key === 'contact_phone') {
       storePhone = s.value;
+    } else if (s.key.startsWith('guarantee_')) {
+      guaranteesConfig[s.key] = s.value;
     }
   });
+
+  const guaranteesProps = {
+    enabled: guaranteesConfig['guarantee_box_enabled'] !== 'false',
+    g1Title: guaranteesConfig['guarantee_1_title'] || 'Control de Raíz & Follaje',
+    g1Desc: guaranteesConfig['guarantee_1_desc'] || 'Cada ejemplar es estabilizado antes de ser enviado a tu hogar.',
+    g2Title: guaranteesConfig['guarantee_2_title'] || 'Garantía Arrive Alive (100%)',
+    g2Desc: guaranteesConfig['guarantee_2_desc'] || 'Reemplazo o reembolso si el paquete sufre estrés en el flete.'
+  };
 
   const originalPrice = (product as any).original_price || originalPriceSetting;
 
@@ -291,7 +302,12 @@ async function ProductDetailContent({ params }: { params: Promise<{ id: string }
             </p>
 
             {/* FORMULARIO DE COMPRA & VARIANTES */}
-            <AddToCartForm product={product} sizes={sizes} storePhone={storePhone} />
+            <AddToCartForm 
+              product={product} 
+              sizes={sizes} 
+              storePhone={storePhone} 
+              guarantees={guaranteesProps} 
+            />
           </div>
 
           {/* ACORDEÓN / TABS DE INFORMACIÓN TÉCNICA */}

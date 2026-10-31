@@ -9,11 +9,25 @@ import { Minus, Plus, ShoppingBag, Heart, ShieldCheck, Sparkles, Share2, Check, 
 export default function AddToCartForm({ 
   product, 
   sizes, 
-  storePhone 
+  storePhone,
+  guarantees = {
+    enabled: true,
+    g1Title: 'Control de Raíz & Follaje',
+    g1Desc: 'Cada ejemplar es estabilizado antes de ser enviado a tu hogar.',
+    g2Title: 'Garantía Arrive Alive (100%)',
+    g2Desc: 'Reemplazo o reembolso si el paquete sufre estrés en el flete.'
+  }
 }: { 
   product: any; 
   sizes: string[]; 
   storePhone?: string; 
+  guarantees?: {
+    enabled?: boolean;
+    g1Title?: string;
+    g1Desc?: string;
+    g2Title?: string;
+    g2Desc?: string;
+  };
 }) {
   const { addToCart, toggleCart } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
@@ -179,24 +193,34 @@ export default function AddToCartForm({
         </button>
       </div>
 
-      {/* Bloque de Garantías */}
-      <div className="bg-gray-50/80 p-5 rounded-2xl border border-gray-200/70 space-y-3.5">
-        <div className="flex items-center gap-3">
-          <Sparkles className="text-accent shrink-0" size={18} />
-          <div>
-            <h5 className="font-bold text-xs uppercase text-gray-900">Control de Raíz & Follaje</h5>
-            <p className="text-[11px] text-gray-500 font-light">Cada ejemplar es estabilizado antes de ser enviado a tu hogar.</p>
+      {/* Bloque de Garantías Personalizable desde Admin */}
+      {guarantees?.enabled !== false && (
+        <div className="bg-gray-50/80 p-5 rounded-2xl border border-gray-200/70 space-y-3.5">
+          <div className="flex items-center gap-3">
+            <Sparkles className="text-accent shrink-0" size={18} />
+            <div>
+              <h5 className="font-bold text-xs uppercase text-gray-900">
+                {guarantees?.g1Title || 'Control de Raíz & Follaje'}
+              </h5>
+              <p className="text-[11px] text-gray-500 font-light">
+                {guarantees?.g1Desc || 'Cada ejemplar es estabilizado antes de ser enviado a tu hogar.'}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <ShieldCheck className="text-accent shrink-0" size={18} />
-          <div>
-            <h5 className="font-bold text-xs uppercase text-gray-900">Garantía Arrive Alive (100%)</h5>
-            <p className="text-[11px] text-gray-500 font-light">Reemplazo o reembolso si el paquete sufre estrés en el flete.</p>
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="text-accent shrink-0" size={18} />
+            <div>
+              <h5 className="font-bold text-xs uppercase text-gray-900">
+                {guarantees?.g2Title || 'Garantía Arrive Alive (100%)'}
+              </h5>
+              <p className="text-[11px] text-gray-500 font-light">
+                {guarantees?.g2Desc || 'Reemplazo o reembolso si el paquete sufre estrés en el flete.'}
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
     </div>
   );

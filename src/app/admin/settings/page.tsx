@@ -14,7 +14,8 @@ import {
   Building2, 
   Smartphone,
   CheckCircle2,
-  Zap
+  Zap,
+  ShieldCheck
 } from 'lucide-react';
 import { Suspense } from 'react';
 
@@ -524,7 +525,75 @@ async function SettingsAdminContent() {
           </div>
         </div>
 
-        {/* SECCIÓN 4: TÍTULOS DEL CATÁLOGO DE PRODUCTOS */}
+        {/* SECCIÓN 4: BLOQUE DE GARANTÍAS EN FICHA DE PRODUCTO */}
+        <div className="space-y-4 bg-emerald-50/60 p-6 rounded-2xl border border-emerald-200/80">
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-emerald-950 flex items-center gap-2">
+              <ShieldCheck size={16} className="text-emerald-700" /> Garantías en Ficha de Producto (Control de Raíz & Arrive Alive)
+            </h3>
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700 bg-surface px-3 py-1.5 rounded-xl border border-emerald-300">
+              <input
+                type="hidden"
+                name="guarantee_box_enabled"
+                value="false"
+              />
+              <input
+                type="checkbox"
+                name="guarantee_box_enabled"
+                value="true"
+                defaultChecked={settings['guarantee_box_enabled'] !== 'false'}
+                className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer"
+              />
+              <span>Mostrar Bloque de Garantías</span>
+            </label>
+          </div>
+
+          <div className="p-4 bg-surface rounded-xl border border-emerald-100 space-y-3">
+            <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-widest block">Garantía 1 (Calidad Botánica)</span>
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">Título de la Garantía 1</label>
+              <input
+                type="text"
+                name="guarantee_1_title"
+                defaultValue={settings['guarantee_1_title'] || 'Control de Raíz & Follaje'}
+                className="w-full p-2.5 border border-gray-200 rounded-lg text-xs font-bold outline-none focus:border-emerald-600"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">Descripción de la Garantía 1</label>
+              <input
+                type="text"
+                name="guarantee_1_desc"
+                defaultValue={settings['guarantee_1_desc'] || 'Cada ejemplar es estabilizado antes de ser enviado a tu hogar.'}
+                className="w-full p-2.5 border border-gray-200 rounded-lg text-xs outline-none focus:border-emerald-600"
+              />
+            </div>
+          </div>
+
+          <div className="p-4 bg-surface rounded-xl border border-emerald-100 space-y-3">
+            <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-widest block">Garantía 2 (Flete & Llegada Segura)</span>
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">Título de la Garantía 2</label>
+              <input
+                type="text"
+                name="guarantee_2_title"
+                defaultValue={settings['guarantee_2_title'] || 'Garantía Arrive Alive (100%)'}
+                className="w-full p-2.5 border border-gray-200 rounded-lg text-xs font-bold outline-none focus:border-emerald-600"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">Descripción de la Garantía 2</label>
+              <input
+                type="text"
+                name="guarantee_2_desc"
+                defaultValue={settings['guarantee_2_desc'] || 'Reemplazo o reembolso si el paquete sufre estrés en el flete.'}
+                className="w-full p-2.5 border border-gray-200 rounded-lg text-xs outline-none focus:border-emerald-600"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* SECCIÓN 5: TÍTULOS DEL CATÁLOGO DE PRODUCTOS */}
         <div className="space-y-4 bg-gray-50/80 p-6 rounded-2xl border border-gray-100">
           <h3 className="font-bold text-xs uppercase tracking-wider text-accent flex items-center gap-2">
             <Type size={16} /> Sección del Catálogo General de Productos
