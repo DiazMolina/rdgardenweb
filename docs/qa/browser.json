@@ -1,0 +1,41 @@
+{
+  "desktop": {
+    "title": "R&D Garden | Innovación en Plantas y Coleccionismo Botánico",
+    "heading": "TropicalesExóticas y Aclimatadas",
+    "width": 1440,
+    "scrollWidth": 1440,
+    "cards": 0,
+    "body": "Saltar al contenido\n🌍 ENVÍOS A TODO EL PAÍS • EMPAQUE TÉRMICO CERTIFICADO Y GARANTÍA DE LLEGADA VIVA 🌿\nR&D Garden\nBOTÁNICA DE COLECCIÓN\nINICIO\nCATÁLOGO\nDESEOS\nADMIN\nTu Carrito (0)\n\nLos costos de envío por agencia son asumidos por el comprador\n\nTu carrito está vacío\n\nAgrega algunos ejemplares para darle vida a tu hogar.\n\nSEGUIR EXPLORANDO\nR&D GARDEN · COLECCIONISMO BOTÁNICO\nTropicales\nExóticas y Aclimatadas\n\nEjemplares de colección con raíces fuertes y follaje exuberante. Explora los ejemplares disponibles en nuestro catálogo.\n\nExplorar Tienda\n01 / 02\nCOLECCIÓN EXCLUSIVA DE PLANTAS RARAS\nCURA"
+  },
+  "dark": {
+    "background": "rgb(16, 27, 22)",
+    "foreground": "rgb(237, 241, 231)",
+    "surface": "oklab(0.256988 -0.0228053 0.00874333 / 0.85)",
+    "gray": "rgb(209, 218, 203)"
+  },
+  "persisted": "dark",
+  "viewport360": {
+    "width": 360,
+    "scrollWidth": 360
+  },
+  "viewport390": {
+    "width": 390,
+    "scrollWidth": 390
+  },
+  "viewport768": {
+    "width": 768,
+    "scrollWidth": 768
+  },
+  "menu": {
+    "open": true,
+    "focusInside": true
+  },
+  "menuClosed": true,
+  "cart": {
+    "dialog": true,
+    "focusInside": true,
+    "empty": true
+  },
+  "cartReturnFocus": null,
+  "note": "Initial synthetic .click() did not focus trigger. Keyboard focus restoration verified in routes-and-keyboard.json. Product data unavailable due to Supabase ENOTFOUND."
+}

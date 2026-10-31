@@ -1,0 +1,79 @@
+src/lib/security/validation.ts:31:  if (!(form instanceof FormData) || Array.from(form.keys()).length > 80) throw new InputError('Formulario inválido');
+src/proxy.ts:5:  const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
+src/app/page.tsx:40:    .from('hero_slides')
+src/app/page.tsx:52:    .from('site_settings')
+src/app/page.tsx:84:    .from('categories')
+src/app/page.tsx:165:    supabase.from('products').select('*').order('created_at', { ascending: false }).limit(16),
+src/app/page.tsx:166:    supabase.from('site_settings').select('key').like('key', 'product_visibility_%').eq('value', 'false'),
+src/app/page.tsx:234:        dangerouslySetInnerHTML={{
+src/components/AnnouncementBar.tsx:7:    .from('site_settings')
+src/components/LiveSearch.tsx:33:          supabase.from('products').select('id,name,category,image_url,price').or('is_published.eq.true,is_published.is.null').ilike('name', `%${trimmed}%`).limit(12),
+src/components/LiveSearch.tsx:34:          supabase.from('site_settings').select('key').like('key', 'product_visibility_%').eq('value', 'false'),
+src/app/deseos/page.tsx:21:    .from('products')
+src/app/catalogo/page.tsx:70:    .from('site_settings')
+src/app/catalogo/page.tsx:91:    .from('products')
+src/app/catalogo/page.tsx:95:  if (pausedIds.size) query = query.not('id', 'in', `(${Array.from(pausedIds).join(',')})`);
+src/app/catalogo/page.tsx:210:    supabase.from('categories').select('name').order('sort_order', { ascending: true }),
+src/app/catalogo/page.tsx:211:    supabase.from('products').select('category, badge'),
+src/app/catalogo/page.tsx:234:  const categories = ['Todas', ...Array.from(dynamicCategoriesSet)];
+src/app/catalogo/page.tsx:235:  const badges = Array.from(new Set<string>((productCats || []).map(p => p.badge).filter(Boolean))).sort();
+src/components/useDialog.ts:17:    const focusable = () => Array.from(element.querySelectorAll<HTMLElement>('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex="0"]')).filter(node => node.getClientRects().length > 0);
+src/app/api/migrate/route.ts:7:    supabaseAdmin.from('products').select('*').limit(1),
+src/app/api/migrate/route.ts:8:    supabaseAdmin.from('orders').select('*').limit(1),
+src/app/politica-de-privacidad/page.tsx:30:    .from('site_settings')
+src/app/api/seed/route.ts:30:    const fakeProducts = Array.from({ length: 20 }).map(() => ({
+src/app/api/seed/route.ts:41:      .from('products')
+src/app/checkout/actions.ts:10:    .from('site_settings')
+src/app/checkout/actions.ts:29:    .from('site_settings')
+src/app/checkout/actions.ts:44:    .from('site_settings')
+src/app/checkout/actions.ts:97:    const { data, error } = await supabaseAdmin.rpc('secure_checkout', {
+src/app/layout.tsx:54:      <head><script nonce={nonce} dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem("rd-theme");document.documentElement.dataset.theme=t==="light"||t==="dark"?t:"system"}catch{document.documentElement.dataset.theme="system"}` }} /></head>
+src/app/producto/[id]/page.tsx:25:    .from('products')
+src/app/producto/[id]/page.tsx:78:    .from('products')
+src/app/producto/[id]/page.tsx:89:    .from('site_settings')
+src/app/producto/[id]/page.tsx:108:    .from('site_settings')
+src/app/producto/[id]/page.tsx:117:    .from('products')
+src/app/producto/[id]/page.tsx:125:      .from('products')
+src/app/producto/[id]/page.tsx:193:        dangerouslySetInnerHTML={{ __html: safeJson(jsonLdProduct) }}
+src/app/producto/[id]/page.tsx:197:        dangerouslySetInnerHTML={{ __html: safeJson(jsonLdBreadcrumb) }}
+src/app/sitemap.ts:42:      .from('products')
+src/app/terminos-y-condiciones/page.tsx:31:    .from('site_settings')
+src/app/admin/categories/page.tsx:13:    .from('categories')
+src/app/admin/ProductListClient.tsx:19:  const categoriesList = ['Todas', ...Array.from(new Set(products.map(p => p.category || 'Plantas de Interior')))];
+src/app/admin/actions.ts:44:  let insertResult = await supabaseAdmin.from('products').insert([{
+src/app/admin/actions.ts:53:    insertResult = await supabaseAdmin.from('products').insert([baseData]).select('id').single();
+src/app/admin/actions.ts:64:  await supabaseAdmin.from('site_settings').upsert([
+src/app/admin/actions.ts:120:    .from('products')
+src/app/admin/actions.ts:132:      .from('products')
+src/app/admin/actions.ts:143:  await supabaseAdmin.from('site_settings').upsert([
+src/app/admin/actions.ts:167:  const { error } = await supabaseAdmin.from('products').delete().eq('id', id);
+src/app/admin/actions.ts:175:  await supabaseAdmin.from('site_settings').delete().in('key', [
+src/app/admin/actions.ts:193:    .from('products')
+src/app/admin/actions.ts:217:    .from('products')
+src/app/admin/actions.ts:226:  await supabaseAdmin.from('site_settings').upsert({
+src/app/admin/categories/actions.ts:19:  const { error } = await supabaseAdmin.from('categories').insert([
+src/app/admin/categories/actions.ts:47:    .from('categories')
+src/app/admin/categories/actions.ts:67:  const { error } = await supabaseAdmin.from('categories').delete().eq('id', id);
+src/app/admin/page.tsx:24:    supabaseAdmin.from('products').select('*').order('created_at', { ascending: false }),
+src/app/admin/page.tsx:25:    supabaseAdmin.from('orders').select('*'),
+src/app/admin/page.tsx:26:    supabaseAdmin.from('order_items').select('*'),
+src/app/admin/page.tsx:27:    supabaseAdmin.from('site_settings').select('*').like('key', 'product_visibility_%'),
+src/app/admin/terms/page.tsx:30:    .from('site_settings')
+src/app/admin/terms/actions.ts:35:        .from('site_settings')
+src/app/admin/carousel/actions.ts:24:  const { error } = await supabaseAdmin.from('hero_slides').insert([data]);
+src/app/admin/carousel/actions.ts:54:    .from('hero_slides')
+src/app/admin/carousel/actions.ts:73:  const { error } = await supabaseAdmin.from('hero_slides').delete().eq('id', id);
+src/app/admin/settings/page.tsx:23:    .from('site_settings')
+src/app/admin/orders/actions.ts:14:    .from('orders')
+src/app/admin/orders/actions.ts:34:    .from('orders')
+src/app/admin/orders/actions.ts:42:      .from('site_settings')
+src/app/admin/settings/actions.ts:39:        .from('site_settings')
+src/app/admin/privacy/actions.ts:35:        .from('site_settings')
+src/app/admin/new/page.tsx:13:    .from('categories')
+src/app/admin/carousel/page.tsx:12:    .from('hero_slides')
+src/app/admin/edit/[id]/page.tsx:17:    .from('products')
+src/app/admin/edit/[id]/page.tsx:23:    .from('categories')
+src/app/admin/edit/[id]/page.tsx:33:    .from('site_settings')
+src/app/admin/privacy/page.tsx:31:    .from('site_settings')
+src/app/admin/orders/page.tsx:11:    .from('orders')
+src/app/admin/orders/page.tsx:20:    .from('site_settings')

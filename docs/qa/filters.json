@@ -1,0 +1,11 @@
+{
+  "loaded": true,
+  "url": "/catalogo",
+  "query": "?q=Monstera&badge=Ex%C3%B3tica&price=50-150&inStock=true&page=2",
+  "resetsPage": true,
+  "keepsQuery": true,
+  "keepsBadge": true,
+  "keepsStock": true,
+  "keepsPrice": true,
+  "explicitError": true
+}

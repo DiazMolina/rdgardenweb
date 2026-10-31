@@ -1,0 +1,28 @@
+
+> rd-garden@0.1.0 test:security
+> node --test tests/security.test.mjs
+
+✔ UUIDs and stock reject SQL/time/blind payloads and invalid numbers (1.271236ms)
+✔ admin authorization ignores user_metadata and matches server roles or exact IDs (0.235162ms)
+✔ verified getUser response is required for protected operations (24.837628ms)
+✔ all admin actions reject before any privileged database operation (50.625848ms)
+✔ every admin data loader has a server-side guard (22.307821ms)
+✔ structured data cannot close its script or insert HTML (0.838331ms)
+✔ exported spreadsheet escapes stored HTML and formula prefixes (0.317626ms)
+✔ unsafe URL schemes, private image hosts and protocol-relative links rejected (0.680355ms)
+✔ forms reject mass payloads, negative prices, fractional stock and file uploads (1.280073ms)
+✔ checkout strips browser prices, totals, names and unexpected properties (0.722729ms)
+✔ CSP is request-specific, production-safe, no-store for admin and overrides untrusted nonce (8.213536ms)
+✔ diagnostic and seed handlers reject anonymous callers; GET seed never writes (7.958396ms)
+✔ authorized admin actions still reject invalid IDs, stock, flags and status before database access (26.36885ms)
+✔ server session cookies are HttpOnly, Secure in production and SameSite=Lax (3.200304ms)
+✔ catalog query arrays, unknown sort and excessive pages stay within safe bounds (7.426514ms)
+✔ checkout action sends canonical inputs to RPC and never falls back after a database failure (6.11307ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 670.646507

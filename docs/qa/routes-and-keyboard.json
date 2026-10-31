@@ -1,0 +1,55 @@
+{
+  "focusRestored": true,
+  "routes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/catalogo",
+      "error": "timeout"
+    },
+    {
+      "path": "/deseos",
+      "status": 200
+    },
+    {
+      "path": "/terminos-y-condiciones",
+      "status": 200
+    },
+    {
+      "path": "/politica-de-privacidad",
+      "status": 200
+    }
+  ],
+  "filters": {
+    "loaded": true,
+    "url": "/catalogo",
+    "query": "?q=Monstera&badge=Ex%C3%B3tica&price=50-150&inStock=true&page=2",
+    "resetsPage": true,
+    "keepsQuery": true,
+    "keepsBadge": true,
+    "keepsStock": true,
+    "keepsPrice": true,
+    "explicitError": true
+  },
+  "viewports": [
+    {
+      "width": 360,
+      "scrollWidth": 360
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  ],
+  "note": "Filter selector corrected to main links; initial run selected mobile-menu link."
+}

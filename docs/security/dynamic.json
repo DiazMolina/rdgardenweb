@@ -1,0 +1,110 @@
+{
+  "routes": [
+    {
+      "path": "/api/migrate",
+      "method": "GET",
+      "status": 401,
+      "redirect": null,
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-YjcxM2Q3ZDQtNmM5Yy00YTVhLTkzMzAtYmJiYjY3NzNkOGM3' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/api/seed",
+      "method": "GET",
+      "status": 405,
+      "redirect": null,
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-ZDE3MTRlZjMtNzQ4NS00MGFjLTlkYjItZWFjYzE2MmFjYjkx' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/api/seed",
+      "method": "POST",
+      "status": 401,
+      "redirect": null,
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-MTJlOGRkMTEtNDYxNC00M2RlLTg5NjYtNTkyOTA5YzZhOWNi' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/admin",
+      "method": "GET",
+      "status": 307,
+      "redirect": "/login",
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-NTk0Yzk2MzctMjJhMi00MjcxLThhM2QtMjQ4YThjMjQyODZj' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/admin/orders",
+      "method": "GET",
+      "status": 307,
+      "redirect": "/login",
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-ZGYzY2ZhYjItOTFlMy00NjhhLTliMWItNGMzYjlhNWQwZDcz' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "GET",
+      "status": 307,
+      "redirect": "/login",
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-YzE0M2UwZWMtOWM3ZS00MWEyLThjMTctMDIwZWQyOTdmNjQ5' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/login",
+      "method": "GET",
+      "status": 200,
+      "redirect": null,
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-store",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-YjExMDJjMmItMWQwOS00NTI1LWI4MzEtOTM0MDc0OTUwYTFh' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    },
+    {
+      "path": "/.env.local",
+      "method": "GET",
+      "status": 404,
+      "redirect": null,
+      "nosniff": "nosniff",
+      "frame": "DENY",
+      "noStore": "private, no-cache, no-store, max-age=0, must-revalidate",
+      "csp": "default-src 'self'; script-src 'self' 'nonce-NGI2YzFiMjItNDZkNi00MDljLWE0Y2MtYWI5YTg2ZWUwMGY5' 'strict-dynamic'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; connect-src 'self' https://kmwhcausamfvgwcipjqi.supabase.co wss://kmwhcausamfvgwcipjqi.supabase.co; upgrade-insecure-requests"
+    }
+  ],
+  "browser": {
+    "login": {
+      "heading": "Acceso administrativo",
+      "themeScriptRan": true,
+      "scripts": true
+    },
+    "xss": {
+      "inlineScriptBlocked": true,
+      "eventHandlerBlocked": true,
+      "legitimateThemeScriptRan": true
+    },
+    "themeHydrated": {
+      "before": "dark",
+      "after": "system",
+      "changed": true
+    },
+    "mobile": {
+      "width": 390,
+      "scrollWidth": 390
+    }
+  },
+  "csrf": {
+    "status": 500,
+    "rejected": true,
+    "setCookie": false
+  }
+}

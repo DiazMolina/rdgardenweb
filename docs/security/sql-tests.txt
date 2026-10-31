@@ -1,0 +1,27 @@
+
+> rd-garden@0.1.0 test:security:sql
+> node --test tests/security-sql.test.mjs
+
+▶ database security regressions on isolated PostgreSQL
+  ✔ server price and canonical name replace browser values (18.372386ms)
+  ✔ idempotent retry creates one order and decrements stock once (8.654899ms)
+  ✔ idempotency response is bound to server fingerprint (4.37553ms)
+  ✔ negative, zero, fractional and excessive quantities fail (4.017319ms)
+  ✔ SQL injection strings in IDs are rejected without query execution (6.775392ms)
+  ✔ duplicates, unknown variants and aggregate overstock across sizes fail (5.124858ms)
+  ✔ paused and unpublished products cannot be purchased (5.586221ms)
+  ✔ packaging is computed from database settings; payment method validated (4.405674ms)
+  ✔ item insert failure rolls back order and inventory atomically (7.116601ms)
+  ✔ browser database roles cannot read orders, mutate catalog or execute checkout (11.567794ms)
+  ✔ RLS hides paused products and private order-shipping settings (3.769866ms)
+  ✔ service role retains commerce access and can execute RPC (3.064024ms)
+  ✔ persistent checkout rate limit rejects the eleventh completed request (21.884396ms)
+✔ database security regressions on isolated PostgreSQL (109.645276ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2241.703419

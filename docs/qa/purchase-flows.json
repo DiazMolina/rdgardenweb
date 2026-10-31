@@ -1,0 +1,26 @@
+{
+  "cartFocus": true,
+  "cartReturnFocus": null,
+  "searchFocus": "q",
+  "searchClosed": true,
+  "reducedMotion": {
+    "matches": true,
+    "duration": "1e-05s"
+  },
+  "cartPersisted": true,
+  "quantityCap": {
+    "quantity": 3,
+    "disabled": true
+  },
+  "checkout": {
+    "open": true,
+    "fields": 9,
+    "labels": true,
+    "focus": true
+  },
+  "catalog": {
+    "heading": "Catálogo Completo",
+    "overflow": false
+  },
+  "note": "Isolated localStorage fixture, removed after test; no orders submitted. Focus restoration superseded by routes-and-keyboard.json."
+}
