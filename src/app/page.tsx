@@ -67,10 +67,16 @@ async function TestimonialsWrapper() {
     whatsappLink = whatsappLink.replace(/wa\.me\/\d+/, `wa.me/${cleanPhone}`);
   }
 
+  const isCommunityEnabled = settings['whatsapp_community_enabled'] !== 'false';
+
   return (
     <TestimonialsSection
+      enabled={isCommunityEnabled}
       whatsappLink={whatsappLink}
       buttonText={settings['whatsapp_button_text']}
+      badge={settings['whatsapp_community_badge']}
+      title={settings['whatsapp_community_title']}
+      description={settings['whatsapp_community_description']}
     />
   );
 }

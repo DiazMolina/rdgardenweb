@@ -319,36 +319,101 @@ async function SettingsAdminContent() {
           </div>
         </div>
 
-        {/* SECCIÓN 2: ENLACE Y COMUNIDAD DE WHATSAPP */}
+        {/* SECCIÓN 2: ENLACE Y COMUNIDAD DE WHATSAPP (GRUPO VIP) */}
         <div className="space-y-4 bg-tint/50 p-6 rounded-2xl border border-emerald-100">
-          <h3 className="font-bold text-xs uppercase tracking-wider text-accent flex items-center gap-2">
-            <MessageCircle size={16} className="text-[#25D366]" /> Enlace del Grupo de WhatsApp
-          </h3>
-
-          <div>
-            <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
-              Enlace de WhatsApp / Número
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-accent flex items-center gap-2">
+              <MessageCircle size={16} className="text-[#25D366]" /> Banner Comunidad de WhatsApp (Grupo VIP)
+            </h3>
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700 bg-surface px-3 py-1.5 rounded-xl border border-emerald-200">
+              <input
+                type="hidden"
+                name="whatsapp_community_enabled"
+                value="false"
+              />
+              <input
+                type="checkbox"
+                name="whatsapp_community_enabled"
+                value="true"
+                defaultChecked={settings['whatsapp_community_enabled'] !== 'false'}
+                className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer"
+              />
+              <span>Mostrar Banner en Inicio</span>
             </label>
-            <input
-              type="text"
-              name="whatsapp_link"
-              defaultValue={(settings['whatsapp_link'] || '').replace('51987654321', '51997966231') || 'https://wa.me/51997966231?text=Hola!%20Me%20gustar%C3%ADa%20unirme%20a%20la%20comunidad%20de%20plantas%20de%20RD%20Garden'}
-              required
-              className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-mono outline-none focus:border-emerald-600 bg-surface"
-            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Etiqueta / Badge Superior
+              </label>
+              <input
+                type="text"
+                name="whatsapp_community_badge"
+                defaultValue={settings['whatsapp_community_badge'] || 'Grupo VIP de Plant Lovers'}
+                required
+                placeholder="Ej. Grupo VIP de Plant Lovers"
+                className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-bold outline-none focus:border-emerald-600 bg-surface"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Título del Banner
+              </label>
+              <input
+                type="text"
+                name="whatsapp_community_title"
+                defaultValue={settings['whatsapp_community_title'] || 'Comunidad Exclusiva en WhatsApp'}
+                required
+                placeholder="Ej. Comunidad Exclusiva en WhatsApp"
+                className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-bold outline-none focus:border-emerald-600 bg-surface"
+              />
+            </div>
           </div>
 
           <div>
             <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
-              Texto del Botón de WhatsApp
+              Descripción / Mensaje de Invitación
             </label>
-            <input
-              type="text"
-              name="whatsapp_button_text"
-              defaultValue={settings['whatsapp_button_text'] || 'Únete a nuestra comunidad en WhatsApp'}
+            <textarea
+              name="whatsapp_community_description"
+              rows={3}
+              defaultValue={settings['whatsapp_community_description'] || 'Recibe primero las fotos de los nuevos lotes de plantas raras recién llegadas al invernadero, resuelve dudas de cultivo y comparte fotos de tus ejemplares.'}
               required
-              className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-bold outline-none focus:border-emerald-600 bg-surface"
+              placeholder="Descripción atractiva para unirse al grupo..."
+              className="w-full p-3 border border-emerald-200 rounded-xl text-xs outline-none focus:border-emerald-600 bg-surface leading-relaxed"
             />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Enlace de WhatsApp o Grupo
+              </label>
+              <input
+                type="text"
+                name="whatsapp_link"
+                defaultValue={(settings['whatsapp_link'] || '').replace('51987654321', '51997966231') || 'https://wa.me/51997966231?text=Hola!%20Me%20gustar%C3%ADa%20unirme%20a%20la%20comunidad%20de%20plantas%20de%20RD%20Garden'}
+                required
+                placeholder="https://wa.me/... o https://chat.whatsapp.com/..."
+                className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-mono outline-none focus:border-emerald-600 bg-surface"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Texto del Botón de WhatsApp
+              </label>
+              <input
+                type="text"
+                name="whatsapp_button_text"
+                defaultValue={settings['whatsapp_button_text'] || 'Únete a nuestra comunidad en WhatsApp'}
+                required
+                placeholder="Ej. Únete a nuestra comunidad en WhatsApp"
+                className="w-full p-3 border border-emerald-200 rounded-xl text-xs font-bold outline-none focus:border-emerald-600 bg-surface"
+              />
+            </div>
           </div>
         </div>
 

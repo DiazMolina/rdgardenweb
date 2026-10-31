@@ -6,15 +6,33 @@ import { MessageCircle, Sparkles } from 'lucide-react';
 export default function TestimonialsSection({
   whatsappLink,
   buttonText,
+  enabled = true,
+  badge,
+  title,
+  description,
 }: {
   whatsappLink?: string;
   buttonText?: string;
+  enabled?: boolean;
+  badge?: string;
+  title?: string;
+  description?: string;
 }) {
+  if (enabled === false) {
+    return null;
+  }
+
   const defaultLink = "https://wa.me/51997966231?text=Hola!%20Me%20gustar%C3%ADa%20unirme%20a%20la%20comunidad%20de%20plantas%20de%20RD%20Garden";
   const defaultText = "Únete a nuestra comunidad en WhatsApp";
+  const defaultBadge = "Grupo VIP de Plant Lovers";
+  const defaultTitle = "Comunidad Exclusiva en WhatsApp";
+  const defaultDescription = "Recibe primero las fotos de los nuevos lotes de plantas raras recién llegadas al invernadero, resuelve dudas de cultivo y comparte fotos de tus ejemplares.";
 
   const link = whatsappLink || defaultLink;
   const label = buttonText || defaultText;
+  const displayBadge = badge || defaultBadge;
+  const displayTitle = title || defaultTitle;
+  const displayDesc = description || defaultDescription;
 
   return (
     <section className="py-20 bg-gradient-to-br from-[#064e3b] via-[#047857] to-[#022c22] text-white relative overflow-hidden">
@@ -26,15 +44,15 @@ export default function TestimonialsSection({
         {/* BANNER COMUNIDAD DE WHATSAPP */}
         <div className="bg-gradient-to-r from-black/30 to-black/10 border border-white/20 p-8 sm:p-12 rounded-[2.5rem] backdrop-blur-md text-center max-w-4xl mx-auto shadow-2xl relative overflow-hidden">
           <div className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-[#25D366]/20 border border-[#25D366]/30 text-[#25D366] text-xs font-bold uppercase tracking-wider mb-6">
-            <Sparkles size={14} /> Grupo VIP de Plant Lovers
+            <Sparkles size={14} /> {displayBadge}
           </div>
 
           <h3 className="text-2xl sm:text-4xl font-serif font-bold text-white mb-4">
-            Comunidad Exclusiva en WhatsApp
+            {displayTitle}
           </h3>
 
           <p className="text-neutral-300 text-sm sm:text-base font-light max-w-xl mx-auto mb-8 leading-relaxed">
-            Recibe primero las fotos de los nuevos lotes de plantas raras recién llegadas al invernadero, resuelve dudas de cultivo y comparte fotos de tus ejemplares.
+            {displayDesc}
           </p>
 
           <a
