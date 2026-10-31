@@ -43,18 +43,34 @@ async function NewProductContent() {
           ></textarea>
         </div>
 
-        {/* Precio, Stock, Categoría, Badge */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        {/* Precios (Oferta y Original), Stock, Categoría, Badge */}
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
           <div>
-            <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Precio (S/)</label>
+            <label htmlFor="price" className="block text-sm font-medium text-emerald-800 font-bold mb-1">
+              Precio Actual (S/)
+            </label>
             <input
               type="number"
               step="0.01"
               name="price"
               id="price"
               required
-              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full p-3 border border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition font-bold"
               placeholder="0.00"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="original_price" className="block text-sm font-medium text-gray-500 mb-1">
+              Precio Antes (Tachado)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              name="original_price"
+              id="original_price"
+              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition placeholder:text-gray-300"
+              placeholder="Opcional (Ej. 85.00)"
             />
           </div>
 

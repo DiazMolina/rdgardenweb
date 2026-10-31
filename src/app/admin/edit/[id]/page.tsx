@@ -28,14 +28,15 @@ async function EditProductContent({ params }: { params: Promise<{ id: string }> 
     notFound();
   }
 
-  // Consultar fotos y visibilidad de site_settings como respaldo
+  // Consultar fotos, visibilidad y precio tachado de site_settings como respaldo
   const { data: settings } = await supabaseAdmin
     .from('site_settings')
     .select('*')
-    .in('key', [`product_images_${id}`, `product_visibility_${id}`]);
+    .in('key', [`product_images_${id}`, `product_visibility_${id}`, `product_original_price_${id}`]);
 
   let extraImages: string[] = [];
   let isPublished = product.is_published !== undefined ? product.is_published : true;
+  let originalPrice = product.original_price ? String(product.original_price) : '';
 
   settings?.forEach(s => {
     if (s.key === `product_images_${id}`) {
@@ -44,6 +45,8 @@ async function EditProductContent({ params }: { params: Promise<{ id: string }> 
       } catch {}
     } else if (s.key === `product_visibility_${id}`) {
       isPublished = s.value === 'true';
+    } else if (s.key === `product_original_price_${id}`) {
+      originalPrice = s.value;
     }
   });
 
@@ -89,10 +92,12 @@ async function EditProductContent({ params }: { params: Promise<{ id: string }> 
           ></textarea>
         </div>
 
-        {/* Precio, Stock, Categoría, Badge Dinámica */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        {/* Precios (Oferta y Original), Stock, Categoría, Badge */}
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
           <div>
-            <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">Precio (S/)</label>
+            <label htmlFor="price" className="block text-sm font-medium text-emerald-800 font-bold mb-1">
+              Precio Actual (S/)
+            </label>
             <input
               type="number"
               step="0.01"
@@ -100,7 +105,22 @@ async function EditProductContent({ params }: { params: Promise<{ id: string }> 
               id="price"
               defaultValue={product.price}
               required
-              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+              className="w-full p-3 border border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none transition font-bold"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="original_price" className="block text-sm font-medium text-gray-500 mb-1">
+              Precio Antes (Tachado)
+            </label>
+            <input
+              type="number"
+              step="0.01"
+              name="original_price"
+              id="original_price"
+              defaultValue={originalPrice}
+              placeholder="Opcional (Ej. 85.00)"
+              className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition placeholder:text-gray-300"
             />
           </div>
 

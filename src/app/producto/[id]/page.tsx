@@ -84,33 +84,40 @@ async function ProductDetailContent({ params }: { params: Promise<{ id: string }
     notFound();
   }
 
-  // Consultar fotos adicionales en site_settings si no están en la tabla
-  const { data: extraPhotoSetting } = await supabase
+  // Consultar fotos adicionales y precio original tachado en site_settings si no están en la tabla
+  const { data: productSettings } = await supabase
     .from('site_settings')
-    .select('value')
-    .eq('key', `product_images_${id}`)
-    .single();
+    .select('key, value')
+    .in('key', [`product_images_${id}`, `product_original_price_${id}`, 'contact_phone']);
+
+  let extraPhotoSetting: string | null = null;
+  let originalPriceSetting: number | null = null;
+  let storePhone = '+51 997 966 231';
+
+  productSettings?.forEach((s) => {
+    if (s.key === `product_images_${id}`) {
+      extraPhotoSetting = s.value;
+    } else if (s.key === `product_original_price_${id}`) {
+      const val = parseFloat(s.value);
+      if (!isNaN(val)) originalPriceSetting = val;
+    } else if (s.key === 'contact_phone') {
+      storePhone = s.value;
+    }
+  });
+
+  const originalPrice = (product as any).original_price || originalPriceSetting;
 
   let resolvedImages: string[] = [];
   if (product.images && Array.isArray(product.images) && product.images.length > 0) {
     resolvedImages = product.images;
-  } else if (extraPhotoSetting?.value) {
+  } else if (extraPhotoSetting) {
     try {
-      resolvedImages = JSON.parse(extraPhotoSetting.value);
+      resolvedImages = JSON.parse(extraPhotoSetting);
     } catch {}
   }
   if (resolvedImages.length === 0) {
     resolvedImages = [product.image_url || 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?q=80&w=800&auto=format&fit=crop'];
   }
-
-  // Consultar teléfono oficial de la tienda en site_settings
-  const { data: phoneSetting } = await supabase
-    .from('site_settings')
-    .select('value')
-    .eq('key', 'contact_phone')
-    .single();
-
-  const storePhone = phoneSetting?.value || '+51 997 966 231';
 
   // Buscar productos recomendados de la misma categoría o aleatorios
   let { data: relatedProducts } = await supabase
@@ -261,11 +268,21 @@ async function ProductDetailContent({ params }: { params: Promise<{ id: string }
               </div>
             </div>
 
-            {/* Precio en Soles */}
+            {/* Precio en Soles (con soporte de Oferta Tachada) */}
             <div className="flex items-baseline gap-3 mb-6">
               <span className="text-3xl sm:text-4xl font-black text-emerald-800 tracking-tight">
                 S/ {Number(product.price).toFixed(2)}
               </span>
+              {originalPrice && Number(originalPrice) > Number(product.price) && (
+                <>
+                  <span className="text-lg text-gray-400 line-through font-semibold">
+                    S/ {Number(originalPrice).toFixed(2)}
+                  </span>
+                  <span className="bg-gradient-to-r from-amber-500 to-rose-500 text-white text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
+                    -{Math.round(((Number(originalPrice) - Number(product.price)) / Number(originalPrice)) * 100)}% AHORRO
+                  </span>
+                </>
+              )}
             </div>
 
             {/* Descripción Breve */}

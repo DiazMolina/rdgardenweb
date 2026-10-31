@@ -26,6 +26,9 @@ export async function addProduct(formData: FormData) {
 
   const isPublished = formData.get('is_published') === 'true' || formData.get('is_published') === 'on' || formData.get('is_published') === null;
 
+  const rawOriginalPrice = formData.get('original_price') as string;
+  const originalPriceVal = rawOriginalPrice && rawOriginalPrice.trim() !== '' ? parseFloat(rawOriginalPrice) : null;
+
   const baseData = {
     name: formData.get('name') as string,
     description: formData.get('description') as string,
@@ -60,8 +63,8 @@ export async function addProduct(formData: FormData) {
 
   const createdId = insertResult.data.id;
 
-  // Guardar fotos extendidas y visibilidad en site_settings como respaldo asegurado
-  await supabaseAdmin.from('site_settings').upsert([
+  // Guardar fotos extendidas, visibilidad y precio original en site_settings como respaldo asegurado
+  const newSettingsToUpsert = [
     {
       key: `product_images_${createdId}`,
       value: JSON.stringify(imagesArray),
@@ -72,7 +75,17 @@ export async function addProduct(formData: FormData) {
       value: isPublished ? 'true' : 'false',
       updated_at: new Date().toISOString()
     }
-  ]);
+  ];
+
+  if (originalPriceVal !== null) {
+    newSettingsToUpsert.push({
+      key: `product_original_price_${createdId}`,
+      value: originalPriceVal.toString(),
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  await supabaseAdmin.from('site_settings').upsert(newSettingsToUpsert);
 
   revalidatePath('/');
   revalidatePath('/catalogo');
@@ -100,6 +113,9 @@ export async function updateProduct(id: string, formData: FormData) {
     .filter(Boolean);
 
   const isPublished = formData.get('is_published') === 'true' || formData.get('is_published') === 'on';
+
+  const rawOriginalPrice = formData.get('original_price') as string;
+  const originalPriceVal = rawOriginalPrice && rawOriginalPrice.trim() !== '' ? parseFloat(rawOriginalPrice) : null;
 
   const baseData = {
     name: formData.get('name') as string,
@@ -139,8 +155,8 @@ export async function updateProduct(id: string, formData: FormData) {
     throw new Error('No se pudo actualizar el producto');
   }
 
-  // Guardar siempre respaldo de imágenes y visibilidad en site_settings
-  await supabaseAdmin.from('site_settings').upsert([
+  // Guardar siempre respaldo de imágenes, visibilidad y precio original en site_settings
+  const settingsToUpsert = [
     {
       key: `product_images_${id}`,
       value: JSON.stringify(imagesArray),
@@ -151,7 +167,21 @@ export async function updateProduct(id: string, formData: FormData) {
       value: isPublished ? 'true' : 'false',
       updated_at: new Date().toISOString()
     }
-  ]);
+  ];
+
+  if (originalPriceVal !== null) {
+    settingsToUpsert.push({
+      key: `product_original_price_${id}`,
+      value: originalPriceVal.toString(),
+      updated_at: new Date().toISOString()
+    });
+  }
+
+  await supabaseAdmin.from('site_settings').upsert(settingsToUpsert);
+
+  if (originalPriceVal === null) {
+    await supabaseAdmin.from('site_settings').delete().eq('key', `product_original_price_${id}`);
+  }
 
   revalidatePath('/');
   revalidatePath('/catalogo');
@@ -174,7 +204,8 @@ export async function deleteProduct(id: string) {
   // Limpiar llaves de site_settings
   await supabaseAdmin.from('site_settings').delete().in('key', [
     `product_images_${id}`,
-    `product_visibility_${id}`
+    `product_visibility_${id}`,
+    `product_original_price_${id}`
   ]);
 
   revalidatePath('/');

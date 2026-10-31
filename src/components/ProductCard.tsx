@@ -50,6 +50,11 @@ export default function ProductCard({ product }: { product: any }) {
 
           {/* Badges de Estado + Badge Editable */}
           <div className="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
+            {product.original_price && Number(product.original_price) > Number(product.price) && (
+              <span className="bg-gradient-to-r from-amber-500 to-rose-500 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md shadow-rose-900/20 border border-amber-300/40 w-fit animate-pulse">
+                -{Math.round(((Number(product.original_price) - Number(product.price)) / Number(product.original_price)) * 100)}% OFF
+              </span>
+            )}
             {product.stock > 0 && product.stock <= 5 && (
               <span className="bg-red-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
                 ¡Solo {product.stock}!
@@ -148,8 +153,17 @@ export default function ProductCard({ product }: { product: any }) {
 
           <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
             <div>
-              <span className="text-[10px] text-gray-400 block uppercase font-bold tracking-wider">Precio</span>
-              <span className="text-xl font-black text-emerald-800 tracking-tight">S/ {Number(product.price).toFixed(2)}</span>
+              <span className="text-[10px] text-gray-400 block uppercase font-bold tracking-wider">
+                {product.original_price && Number(product.original_price) > Number(product.price) ? 'Oferta' : 'Precio'}
+              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-xl font-black text-emerald-800 tracking-tight">S/ {Number(product.price).toFixed(2)}</span>
+                {product.original_price && Number(product.original_price) > Number(product.price) && (
+                  <span className="text-xs font-semibold text-gray-400 line-through">
+                    S/ {Number(product.original_price).toFixed(2)}
+                  </span>
+                )}
+              </div>
             </div>
 
             <button

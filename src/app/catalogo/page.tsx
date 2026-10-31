@@ -65,13 +65,14 @@ async function ProductList({
 }) {
   const supabase = await createClient();
 
-  // Consultar respaldos de visibilidad pausada y teléfono en site_settings
+  // Consultar respaldos de visibilidad pausada, precios de oferta tachados y teléfono en site_settings
   const { data: generalSettings } = await supabase
     .from('site_settings')
     .select('key, value')
-    .or('key.like.product_visibility_%,key.eq.contact_phone');
+    .or('key.like.product_visibility_%,key.like.product_original_price_%,key.eq.contact_phone');
 
   const pausedIds = new Set<string>();
+  const originalPriceMap: Record<string, number> = {};
   let storePhoneVal = '+51 997 966 231';
 
   generalSettings?.forEach((s) => {
@@ -80,6 +81,10 @@ async function ProductList({
     } else if (s.key.startsWith('product_visibility_') && s.value === 'false') {
       const id = s.key.replace('product_visibility_', '');
       if (UUID.test(id)) pausedIds.add(id);
+    } else if (s.key.startsWith('product_original_price_')) {
+      const id = s.key.replace('product_original_price_', '');
+      const val = parseFloat(s.value);
+      if (!isNaN(val)) originalPriceMap[id] = val;
     }
   });
 
@@ -130,7 +135,12 @@ async function ProductList({
 
   const { data: rawProducts, count, error } = await query;
 
-  const products = (rawProducts || []).filter((p) => (p as { is_published?: boolean }).is_published !== false);
+  const products = (rawProducts || [])
+    .filter((p) => (p as { is_published?: boolean }).is_published !== false)
+    .map((p) => ({
+      ...p,
+      original_price: (p as any).original_price || originalPriceMap[p.id] || null
+    }));
 
   if (error) return <div role="alert" className="catalog-tools text-center"><h2 className="font-serif text-2xl">No pudimos cargar el catálogo</h2><p className="my-4 text-gray-500">Intenta nuevamente en unos momentos.</p><Link href="/catalogo" className="underline">Volver a intentar</Link></div>;
 

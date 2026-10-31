@@ -13,7 +13,8 @@ import {
   QrCode, 
   Building2, 
   Smartphone,
-  CheckCircle2
+  CheckCircle2,
+  Zap
 } from 'lucide-react';
 import { Suspense } from 'react';
 
@@ -417,7 +418,113 @@ async function SettingsAdminContent() {
           </div>
         </div>
 
-        {/* SECCIÓN 3: TÍTULOS DEL CATÁLOGO DE PRODUCTOS */}
+        {/* SECCIÓN 3: OFERTAS RELÁMPAGO Y TEMPORIZADOR (FLASH SALE) */}
+        <div className="space-y-4 bg-amber-50/60 p-6 rounded-2xl border border-amber-200/80">
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-amber-900 flex items-center gap-2">
+              <Zap size={16} className="text-amber-600" /> Oferta Relámpago & Cuenta Regresiva (Flash Sale)
+            </h3>
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-gray-700 bg-surface px-3 py-1.5 rounded-xl border border-amber-300">
+              <input
+                type="hidden"
+                name="flash_sale_enabled"
+                value="false"
+              />
+              <input
+                type="checkbox"
+                name="flash_sale_enabled"
+                value="true"
+                defaultChecked={settings['flash_sale_enabled'] === 'true'}
+                className="w-4 h-4 text-amber-600 rounded focus:ring-amber-500 cursor-pointer"
+              />
+              <span>Activar Venta Flash en Inicio</span>
+            </label>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Insignia / Badge de la Oferta
+              </label>
+              <input
+                type="text"
+                name="flash_sale_badge"
+                defaultValue={settings['flash_sale_badge'] || '⚡ Oferta Relámpago de Fin de Semana'}
+                placeholder="Ej. ⚡ 30% OFF en Plantas Raras"
+                className="w-full p-3 border border-amber-200 rounded-xl text-xs font-bold outline-none focus:border-amber-600 bg-surface"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Fecha & Hora de Finalización
+              </label>
+              <input
+                type="datetime-local"
+                name="flash_sale_end_date"
+                defaultValue={settings['flash_sale_end_date'] || ''}
+                className="w-full p-3 border border-amber-200 rounded-xl text-xs font-bold outline-none focus:border-amber-600 bg-surface"
+              />
+              <p className="text-[10px] text-gray-500 mt-1">El reloj contará automáticamente los días, horas, minutos y segundos restantes.</p>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+              Título de la Oferta
+            </label>
+            <input
+              type="text"
+              name="flash_sale_title"
+              defaultValue={settings['flash_sale_title'] || 'Hasta 30% OFF en Colección de Variegadas'}
+              placeholder="Ej. Liquidación de Follaje Exuberante"
+              className="w-full p-3 border border-amber-200 rounded-xl text-xs font-serif font-bold outline-none focus:border-amber-600 bg-surface"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+              Descripción de la Oferta
+            </label>
+            <textarea
+              name="flash_sale_description"
+              rows={2}
+              defaultValue={settings['flash_sale_description'] || 'Aprovecha precios especiales en ejemplares seleccionados antes de que termine el tiempo. Envío con empaque térmico garantizado a todo el Perú.'}
+              placeholder="Descripción del descuento..."
+              className="w-full p-3 border border-amber-200 rounded-xl text-xs outline-none focus:border-amber-600 bg-surface leading-relaxed"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Texto del Botón CTA
+              </label>
+              <input
+                type="text"
+                name="flash_sale_button_text"
+                defaultValue={settings['flash_sale_button_text'] || 'Ver Plantas en Oferta'}
+                placeholder="Ej. Comprar Ahora con Descuento"
+                className="w-full p-3 border border-amber-200 rounded-xl text-xs font-bold outline-none focus:border-amber-600 bg-surface"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase text-gray-700 mb-1">
+                Enlace de Destino del Botón
+              </label>
+              <input
+                type="text"
+                name="flash_sale_button_link"
+                defaultValue={settings['flash_sale_button_link'] || '/catalogo'}
+                placeholder="Ej. /catalogo o #ofertas"
+                className="w-full p-3 border border-amber-200 rounded-xl text-xs font-mono outline-none focus:border-amber-600 bg-surface"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* SECCIÓN 4: TÍTULOS DEL CATÁLOGO DE PRODUCTOS */}
         <div className="space-y-4 bg-gray-50/80 p-6 rounded-2xl border border-gray-100">
           <h3 className="font-bold text-xs uppercase tracking-wider text-accent flex items-center gap-2">
             <Type size={16} /> Sección del Catálogo General de Productos

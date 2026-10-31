@@ -38,9 +38,10 @@ export function validateForm(form: FormData): void {
       if (!['wa.me', 'chat.whatsapp.com', 'api.whatsapp.com'].includes(url.hostname)) throw new InputError('Enlace WhatsApp inválido');
     }
     if (key === 'button_link') safeUrl(value);
-    if (['price', 'stock', 'sort_order', 'packaging_fee_per_item'].includes(key)) {
+    if (['price', 'original_price', 'stock', 'sort_order', 'packaging_fee_per_item'].includes(key)) {
+      if (key === 'original_price' && (!value || value.trim() === '')) continue;
       const number = Number(value);
-      if (!value || !Number.isFinite(number) || number < 0 || number > 1000000 || (key !== 'price' && key !== 'packaging_fee_per_item' && !Number.isInteger(number))) throw new InputError('Importe o cantidad inválidos');
+      if (!value || !Number.isFinite(number) || number < 0 || number > 1000000 || (key !== 'price' && key !== 'original_price' && key !== 'packaging_fee_per_item' && !Number.isInteger(number))) throw new InputError('Importe o cantidad inválidos');
     }
   }
 }

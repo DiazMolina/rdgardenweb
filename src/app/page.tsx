@@ -6,6 +6,7 @@ import { Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import ProductCard from '@/components/ProductCard';
 import HeroCarousel from '@/components/Home/HeroCarousel';
+import FlashSaleCountdown from '@/components/Home/FlashSaleCountdown';
 import TestimonialsSection from '@/components/Home/TestimonialsSection';
 import AnnouncementBar from '@/components/AnnouncementBar';
 import Footer from '@/components/Footer';
@@ -77,6 +78,36 @@ async function TestimonialsWrapper() {
       badge={settings['whatsapp_community_badge']}
       title={settings['whatsapp_community_title']}
       description={settings['whatsapp_community_description']}
+    />
+  );
+}
+
+// --- FLASH SALE WRAPPER ---
+async function FlashSaleWrapper() {
+  const supabase = await createClient();
+
+  const { data: settingsData } = await supabase
+    .from('site_settings')
+    .select('key, value')
+    .like('key', 'flash_sale_%');
+
+  const settings: Record<string, string> = {};
+  settingsData?.forEach((item) => {
+    settings[item.key] = item.value;
+  });
+
+  const isEnabled = settings['flash_sale_enabled'] === 'true';
+  if (!isEnabled) return null;
+
+  return (
+    <FlashSaleCountdown
+      enabled={isEnabled}
+      badge={settings['flash_sale_badge']}
+      title={settings['flash_sale_title']}
+      description={settings['flash_sale_description']}
+      endDate={settings['flash_sale_end_date']}
+      buttonText={settings['flash_sale_button_text']}
+      buttonLink={settings['flash_sale_button_link']}
     />
   );
 }
@@ -167,10 +198,18 @@ async function HomeCategoriesWrapper() {
 async function HomeProductPreview() {
   const supabase = await createClient();
 
-  const [{ data: rawProducts, error }, { data: pausedSettings }] = await Promise.all([
+  const [{ data: rawProducts, error }, { data: pausedSettings }, { data: originalPriceSettings }] = await Promise.all([
     supabase.from('products').select('*').order('created_at', { ascending: false }).limit(16),
     supabase.from('site_settings').select('key').like('key', 'product_visibility_%').eq('value', 'false'),
+    supabase.from('site_settings').select('key, value').like('key', 'product_original_price_%'),
   ]);
+
+  const originalPriceMap: Record<string, number> = {};
+  originalPriceSettings?.forEach((s) => {
+    const id = s.key.replace('product_original_price_', '');
+    const val = parseFloat(s.value);
+    if (!isNaN(val)) originalPriceMap[id] = val;
+  });
 
   const pausedIds = new Set(
     pausedSettings?.map((s) => s.key.replace('product_visibility_', '')) || []
@@ -178,7 +217,11 @@ async function HomeProductPreview() {
 
   const products = (rawProducts || [])
     .filter((p) => p.is_published !== false && !pausedIds.has(p.id))
-    .slice(0, 8);
+    .slice(0, 8)
+    .map((p) => ({
+      ...p,
+      original_price: p.original_price || originalPriceMap[p.id] || null
+    }));
 
   if (error) return <section className="max-w-7xl mx-auto px-6 pb-20"><div role="status" className="catalog-tools text-center"><h2 className="font-serif text-2xl">El catálogo no está disponible en este momento</h2><p className="mt-3 text-gray-500 text-sm">Vuelve a intentarlo en unos momentos para ver los ejemplares disponibles.</p><Link href="/catalogo" className="inline-block mt-5 underline underline-offset-4 text-accent">Ir al catálogo</Link></div></section>;
   if (!products || products.length === 0) return null;
@@ -274,6 +317,11 @@ export default async function Home() {
           </div>
         }>
           <HeroCarouselWrapper />
+        </Suspense>
+
+        {/* OFERTA RELÁMPAGO Y TEMPORIZADOR FLASH SALE (SI ESTÁ ACTIVO EN ADMIN) */}
+        <Suspense fallback={null}>
+          <FlashSaleWrapper />
         </Suspense>
 
         {/* 4 COLECCIONES DESTACADAS CON IMAGEN */}
